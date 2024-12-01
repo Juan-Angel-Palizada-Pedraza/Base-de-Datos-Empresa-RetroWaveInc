@@ -1,0 +1,95 @@
+Analisis Base de Datos
+"Empresa RetroWaveInc"
+
+Tabla: Productos
+	- ID_Producto (PK): Identificador único del producto.
+	- Nombre_Producto: Nombre del producto (e.g., Walkman Moderno con Soporte para Streaming).
+	- Descripción: Detalles y especificaciones del producto.
+	- Precio: Precio de venta al público.
+	- Stock_Disponible: Cantidad de unidades disponibles en inventario.
+	- ID_Categoria (FK): Relación con la tabla de Categorías.
+
+Tabla: Categorías
+	- ID_Categoria (PK): Identificador único de la categoría.
+	- Nombre_Categoria: Nombre de la categoría (e.g., "Dispositivos Electrónicos").
+	- Descripción_Categoria: Breve descripción de la categoría.
+
+Tabla: Clientes
+	- ID_Cliente (PK): Identificador único del cliente.
+	- Nombre: Nombre del cliente.
+	- Apellido: Apellido del cliente.
+	- Email: Dirección de correo electrónico del cliente.
+	- Teléfono: Número de teléfono del cliente.
+	- Dirección: Dirección de envío del cliente.
+	- ID_Suscripcion: Nivel de suscripción o membresía (si aplica, como "Regular" o "VIP").
+	- Fecha_Registro: Fecha en la que el cliente se registró.
+	- Preferencias: Información opcional sobre intereses del cliente.
+
+Tabla: Pedidos
+	- ID_Pedido (PK): Identificador único del pedido.
+	- Fecha_Pedido: Fecha en que se realizó el pedido.
+	- ID_Cliente (FK): Relación con la tabla de Clientes.
+	- ID_Producto (FK): Relación con la tabla de Productos.
+	- Cantidad: Número de unidades solicitadas.
+	- Total: Total del pedido (calculado a partir de la cantidad y precio unitario).
+	- Canal_Venta: Canal por el cual se realizó la venta (e.g., "Tienda en línea", "Tienda física").
+	- Fecha_Entrega: Fecha en la que se entregó el pedido.
+
+Tabla: Proveedores
+	- ID_Proveedor (PK): Identificador único del proveedor.
+	- Nombre_Proveedor: Nombre del proveedor.
+	- Teléfono_Proveedor: Número de contacto del proveedor.
+	- Email_Proveedor: Dirección de correo electrónico del proveedor.
+	- Dirección_Proveedor: Dirección de la empresa proveedora.
+
+Tabla: Inventario
+	- ID_Inventario (PK): Identificador único de la transacción de inventario.
+	- ID_Producto (FK): Relación con la tabla de Productos.
+	- Cantidad_Ingreso: Cantidad de productos ingresados al inventario.
+	- Fecha_Ingreso: Fecha de ingreso del producto al inventario.
+	- ID_Proveedor (FK): Relación con la tabla de Proveedores.
+	- ID_Almacen (FK): Relación con la tabla de Almacenes.
+	- Stock_Minimo: Cantidad mínima recomendada para el producto.
+
+Tabla: Almacenes
+	- ID_Almacen (PK): Identificador del almacén.
+	- Ubicacion: Dirección física o nombre del almacén.
+	- Capacidad_Maxima: Capacidad máxima de almacenamiento del almacén.
+
+Tabla: Envíos
+	- ID_Envio (PK): Identificador único del envío.
+	- ID_Pedido (FK): Relación con la tabla de Pedidos.
+	- Fecha_Envio: Fecha en la que se envió el pedido.
+	- Estado_Envio: Estado del envío (e.g., "En tránsito", "Entregado").
+	- Método_Envio: Método utilizado para el envío (e.g., "Standard", "Express").
+
+Tabla: Marketing y Promociones
+	- ID_Promocion (PK): Identificador único de la promoción.
+	- Nombre_Promocion: Nombre de la promoción.
+	- Fecha_Inicio: Fecha en la que inicia la promoción.
+	- Fecha_Fin: Fecha en la que termina la promoción.
+	- Descuento: Porcentaje o valor del descuento aplicado.
+	- ID_Producto (FK): Relación con la tabla de Productos.
+
+Tabla: Finanzas
+	- ID_Transaccion (PK): Identificador único de la transacción.
+	- Tipo_Transaccion: Ingreso o egreso.
+	- Fecha_Transaccion: Fecha de la transacción.
+	- Monto: Cantidad de dinero de la transacción.
+	- ID_Proveedor / ID_Pedido (FK): Relación según si es pago a proveedor o ingreso por venta.
+
+Tabla: Análisis de Ventas
+	- ID_Analisis (PK): Identificador único del análisis de ventas.
+	- ID_Producto (FK): Producto asociado al análisis.
+	- Periodo_Analisis: Rango de fechas del análisis.
+	- Cantidad_Vendida: Número de unidades vendidas en el periodo.
+	- Ingresos_Totales: Ingresos generados en el periodo.
+
+Relaciones Entre Tablas
+	1. Productos a Categorías: Relación de muchos a uno, donde cada producto pertenece a una categoría, pero una categoría puede tener múltiples productos.
+	2. Pedidos a Clientes y Productos: Relación de uno a muchos; cada pedido está asociado a un cliente y puede incluir múltiples productos.
+	3. Inventario a Proveedores, Productos y Almacenes: Permite registrar ingresos de productos en diferentes almacenes y de diferentes proveedores.
+	4. Envíos a Pedidos: Relación de uno a uno, ya que cada pedido tiene un envío asociado.
+	5. Marketing y Promociones a Productos: Relación de muchos a uno; una promoción puede aplicarse a varios productos.
+	6. Finanzas a Proveedores y Pedidos: Permite registrar ingresos por ventas y egresos hacia proveedores.
+	7. Análisis de Ventas a Productos: Permite generar reportes periódicos y segmentados de ventas por producto.
